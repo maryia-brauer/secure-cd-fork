@@ -5,10 +5,10 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/maryia-devops-room/secure-cd.git
-        revision: HEAD
+        repoURL: https://github.com/maryia-devops-room/secure-manifests.git
+        revision: main
         directories:
-          - path: .
+          - path: ./prod
   template:
     metadata:
       name: guestbook-ui
@@ -16,7 +16,7 @@ spec:
       project: default
       source:
         repoURL: https://github.com/maryia-devops-room/secure-manifests.git
-        targetRevision: HEAD
+        targetRevision: main
         path: ./prod
       destination:
         server: https://kubernetes.default.svc
