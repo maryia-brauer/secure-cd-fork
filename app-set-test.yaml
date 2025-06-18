@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: getshorty-set
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/maryia-devops-room/secure-cd.git
+        revision: HEAD
+        directories:
+          - path: .
+  template:
+    metadata:
+      name: guestbook-ui
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/maryia-devops-room/secure-cd.git
+        targetRevision: HEAD
+        path: .
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
