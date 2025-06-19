@@ -24,7 +24,7 @@ spec:
         path: '{{path}}'                # path from generator (prod, staging, etc.)
       destination:
         name: in-cluster
-        namespace: '{{path.basename}}'     # deploy to namespace matching folder name
+        namespace: cf-test   # deploy to namespace matching folder name
       syncPolicy:
         automated:
           prune: false
