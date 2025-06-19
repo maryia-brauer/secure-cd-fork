@@ -19,7 +19,7 @@ spec:
       source:
         repoURL: https://github.com/maryia-devops-room/secure-manifests.git
         targetRevision: main
-        path: '{{path}}'                    # path from generator (prod, staging, etc.)
+        path: ./prod                # path from generator (prod, staging, etc.)
       destination:
         name: in-cluster
         namespace: '{{path.basename}}'     # deploy to namespace matching folder name
