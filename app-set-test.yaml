@@ -1,28 +1,39 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: getshorty-set
-  namespace: cf-test
+  name: getshorty-appset
 spec:
   generators:
     - git:
         repoURL: https://github.com/maryia-devops-room/secure-manifests.git
         revision: main
         directories:
-          - path: ./prod
+          - path: '*'
   template:
     metadata:
-      name: guestbook-ui
+      name: getshorty-{{path.basename}}  # app name will be like getshorty-prod
+      annotations:
+        codefresh.io/product: getshorty
     spec:
       project: default
       source:
         repoURL: https://github.com/maryia-devops-room/secure-manifests.git
         targetRevision: main
-        path: ./prod
+        path: '{{path}}'                    # path from generator (prod, staging, etc.)
       destination:
-        server: https://kubernetes.default.svc
-        namespace: default
+        name: in-cluster
+        namespace: '{{path.basename}}'     # deploy to namespace matching folder name
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          prune: false
+          selfHeal: false
+          allowEmpty: false
+        syncOptions:
+          - PrunePropagationPolicy=foreground
+          - Replace=false
+          - PruneLast=false
+          - Validate=true
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=false
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=false
