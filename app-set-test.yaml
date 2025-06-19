@@ -17,7 +17,7 @@ spec:
         codefresh.io/product: getshorty
       namespace: cf-test
     spec:
-      project: default
+      project: restricted-test
       source:
         repoURL: https://github.com/maryia-devops-room/secure-manifests.git
         targetRevision: main
