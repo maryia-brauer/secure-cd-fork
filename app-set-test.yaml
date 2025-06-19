@@ -15,7 +15,7 @@ spec:
       annotations:
         codefresh.io/product: getshorty
     spec:
-      project: default
+      project: restricted-test-restricted
       source:
         repoURL: https://github.com/maryia-devops-room/secure-manifests.git
         targetRevision: main
