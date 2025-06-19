@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: getshorty-appset
+  namespace: cf-test
 spec:
   generators:
     - git:
@@ -14,12 +15,13 @@ spec:
       name: getshorty-{{path.basename}}  # app name will be like getshorty-prod
       annotations:
         codefresh.io/product: getshorty
+      namespace: cf-test
     spec:
       project: restricted-test-restricted
       source:
         repoURL: https://github.com/maryia-devops-room/secure-manifests.git
         targetRevision: main
-        path: ./prod                # path from generator (prod, staging, etc.)
+        path: '{{path}}'                # path from generator (prod, staging, etc.)
       destination:
         name: in-cluster
         namespace: '{{path.basename}}'     # deploy to namespace matching folder name
